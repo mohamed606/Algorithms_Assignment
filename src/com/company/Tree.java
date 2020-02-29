@@ -1,16 +1,39 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
-public class Tree<T> {
+public class Tree<T>{
     private T value;
     private Tree<T> left;
     private Tree<T> right;
 
     public Tree(T value) {
         this.value = value;
+    }
+
+    public Integer [] largestValues(Tree<Integer>root){
+        int level = 0;
+        int removed = 0;
+        Queue<Tree<Integer>>queue = new LinkedList<>();
+        ArrayList<Integer> maximumValues = new ArrayList<>();
+        maximumValues.add(root.getValue());
+        queue.add(root);
+        while (!queue.isEmpty()){
+            Tree<Integer>node = queue.remove();
+            removed++;
+            if(node.getLeft() != null){
+                queue.add(node.getLeft());
+            }
+            if(node.getRight() != null){
+                queue.add(node.getRight());
+            }
+            if(removed == Math.pow(2,level)){
+                level++;
+                removed=0;
+                maximumValues.add(Collections.max(queue,new TreeComparator()).getValue());
+            }
+        }
+        return maximumValues.toArray(new Integer[0]);
     }
 
     public boolean isSymmetric(Tree<Integer> root) {
@@ -92,5 +115,6 @@ public class Tree<T> {
     public void setRight(Tree<T> right) {
         this.right = right;
     }
+
 }
 
