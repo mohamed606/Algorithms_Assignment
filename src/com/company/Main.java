@@ -25,6 +25,7 @@ public class Main {
 //        tree.getRight().setRight(new Tree<>(3));
         System.out.println("isSymmetric "+tree.isSymmetric(tree));
         System.out.println("isSymmetricRec "+tree.isSymmetricRecurs(tree));
+        System.out.println("treeSum "+tree.digitSum(tree));
     }
 
 }
