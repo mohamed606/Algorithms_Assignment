@@ -53,13 +53,13 @@ public class Tree<T> {
         System.out.println("height " +height);
         for(int i=1;i<=height;i++)
         {
-            printGivenLevel(root,i,levelNumbers);
+            getLevelNumbers(root,i,levelNumbers);
             maxNumbers.add(Collections.max(levelNumbers));
             levelNumbers.clear();
         }
         return maxNumbers;
     }
-    public void printGivenLevel(Tree<Integer> root, int level, ArrayList<Integer> numbersInLevel)
+    public void getLevelNumbers(Tree<Integer> root, int level, ArrayList<Integer> numbersInLevel)
     {
         if(root==null)
         {
@@ -71,8 +71,8 @@ public class Tree<T> {
         }
         else if (level>1)
         {
-            printGivenLevel(root.getLeft(),level-1,numbersInLevel);
-            printGivenLevel(root.getRight(),level-1,numbersInLevel);
+            getLevelNumbers(root.getLeft(),level-1,numbersInLevel);
+            getLevelNumbers(root.getRight(),level-1,numbersInLevel);
         }
 
     }
