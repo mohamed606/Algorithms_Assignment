@@ -138,11 +138,11 @@ public class Tree<T> {
         }
         return false;
     }
-    long digitSum(Tree<Integer>root)
+    public long digitSum(Tree<Integer>root)
     {
         return treeSum(root,0);
     }
-    long treeSum(Tree<Integer> node, int val)
+    private long treeSum(Tree<Integer> node, int val)
     {
 
         if (node == null)
