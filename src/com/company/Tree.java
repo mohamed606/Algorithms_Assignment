@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.*;
 
-public class Tree<T>{
+public class Tree<T> {
     private T value;
     private Tree<T> left;
     private Tree<T> right;
@@ -11,70 +11,67 @@ public class Tree<T>{
         this.value = value;
     }
 
-    public Integer [] largestValues(Tree<Integer>root){
-        int level = 0;
-        int removed = 0;
-        Queue<Tree<Integer>>queue = new LinkedList<>();
-        ArrayList<Integer> maximumValues = new ArrayList<>();
-        maximumValues.add(root.getValue());
-        queue.add(root);
-        while (!queue.isEmpty()){
-            Tree<Integer>node = queue.remove();
-            removed++;
-            if(node.getLeft() != null){
-                queue.add(node.getLeft());
-            }
-            if(node.getRight() != null){
-                queue.add(node.getRight());
-            }
-            if(removed == Math.pow(2,level)){
-                level++;
-                removed=0;
-                maximumValues.add(Collections.max(queue,new TreeComparator()).getValue());
-            }
-        }
-        return maximumValues.toArray(new Integer[0]);
-    }
+//    public Integer[] largestValues(Tree<Integer> root) {
+//        int level = 0;
+//        int removed = 0;
+//        Queue<Tree<Integer>> queue = new LinkedList<>();
+//        ArrayList<Integer> maximumValues = new ArrayList<>();
+//        maximumValues.add(root.getValue());
+//        queue.add(root);
+//        while (!queue.isEmpty()) {
+//            Tree<Integer> node = queue.remove();
+//            removed++;
+//            if (node.getLeft() != null) {
+//                queue.add(node.getLeft());
+//            }
+//            if (node.getRight() != null) {
+//                queue.add(node.getRight());
+//            }
+//            if (removed == Math.pow(2, level)) {
+//                level++;
+//                removed = 0;
+//                maximumValues.add(Collections.max(queue, new TreeComparator()).getValue());
+//            }
+//        }
+//        return maximumValues.toArray(new Integer[0]);
+//    }
 
     public boolean isSymmetric(Tree<Integer> root) {
-        int treeLevel=1;
-        int removed=0;
-        ArrayList<Integer>check = new ArrayList<>();
+        int treeLevel = 1;
+        int removed = 0;
+        ArrayList<Integer> check = new ArrayList<>();
         Queue<Tree<Integer>> queue = new LinkedList<>();
-        if(root == null || (root.getLeft()==null && root.getRight()==null)){
+        if (root == null || (root.getLeft() == null && root.getRight() == null)) {
             return true;
-        }else {
+        } else {
             queue.add(root.getLeft());
             queue.add(root.getRight());
-            while (!queue.isEmpty()){
-                Tree<Integer>node = queue.remove();
+            while (!queue.isEmpty()) {
+                Tree<Integer> node = queue.remove();
                 removed++;
-                if(node != null){
-                    queue.add(node.getLeft());
-                    queue.add(node.getRight());
+                if (!node.getValue().equals(1001) && (node.getLeft() != null || node.getRight()!=null)) {
+                    if (node.getLeft() != null) {
+                        queue.add(node.getLeft());
+                    } else {
+                        queue.add(new Tree<>(1001));
+                    }
+                    if (node.getRight() != null) {
+                        queue.add(node.getRight());
+                    } else {
+                        queue.add(new Tree<>(1001));
+                    }
                 }
-                if(check.isEmpty() || (check.size()< ((Math.pow(2,treeLevel))/2)&&removed<=((Math.pow(2,treeLevel))/2)) ){
-                    if(node != null){
+                if (removed <= ((Math.pow(2, treeLevel)) / 2)) {
+                    check.add(node.getValue());
+                } else {
+                    if (node.getValue().equals(check.get(check.size() - 1))) {
+                        check.remove(check.size() - 1);
+                    } else {
                         check.add(node.getValue());
-                    }else {
-                        check.add(1001);
-                    }
-                }else {
-                    int nodeValue = 1001;
-                    if(node != null && node.getValue().equals(check.get(check.size() - 1))){
-                        check.remove(check.size()-1);
-                    }else if(node == null && check.get(check.size()-1).equals(nodeValue)) {
-                        check.remove(check.size()-1);
-                    }else {
-                        if(node == null){
-                            check.add(nodeValue);
-                        }else {
-                            check.add(node.getValue());
-                        }
                     }
                 }
-                if(removed == Math.pow(2,treeLevel)){
-                    removed=0;
+                if (removed == Math.pow(2, treeLevel)) {
+                    removed = 0;
                     treeLevel++;
                 }
             }
