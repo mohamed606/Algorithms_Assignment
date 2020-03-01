@@ -1,7 +1,20 @@
 package com.company;
 
+<<<<<<< HEAD
 import java.util.*;
+=======
+<<<<<<< HEAD
+import java.util.ArrayList;
+import java.util.Collections;
 
+||||||| 57e9d7c
+=======
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+>>>>>>> ce32f15cf56f38c70935dc3cd4be8bc7c72c2ce5
+
+>>>>>>> 628ee1b8cafd81801cde430df8b6ea334b13b332
 public class Tree<T> {
     private T value;
     private Tree<T> left;
@@ -11,6 +24,7 @@ public class Tree<T> {
         this.value = value;
     }
 
+<<<<<<< HEAD
 //    public Integer[] largestValues(Tree<Integer> root) {
 //        int level = 0;
 //        int removed = 0;
@@ -36,6 +50,67 @@ public class Tree<T> {
 //        return maximumValues.toArray(new Integer[0]);
 //    }
 
+=======
+<<<<<<< HEAD
+    public Integer [] largestValues(Tree<Integer> t)
+    {
+        ArrayList<Integer> arrayList = getLevelMaxNumber(t);
+        return arrayList.toArray(new Integer[0]);
+    }
+    public int getHeight(Tree<Integer> root)
+    {
+        if(root==null)
+        {
+            return 0;
+        }
+        int leftHeight=getHeight(root.getLeft());
+        int rightHeight=getHeight(root.getRight());
+        if (leftHeight>rightHeight)
+        {
+            return leftHeight+1;
+        }
+        else
+        {
+            return rightHeight+1;
+        }
+    }
+    public ArrayList<Integer> getLevelMaxNumber(Tree<Integer>root)
+    {
+        int height=getHeight(root);
+        int max=0;
+        ArrayList<Integer>levelNumbers=new ArrayList<>();
+        ArrayList<Integer> maxNumbers= new ArrayList<>();
+
+        System.out.println("height " +height);
+        for(int i=1;i<=height;i++)
+        {
+            getLevelNumbers(root,i,levelNumbers);
+            maxNumbers.add(Collections.max(levelNumbers));
+            levelNumbers.clear();
+        }
+        return maxNumbers;
+    }
+    public void getLevelNumbers(Tree<Integer> root, int level, ArrayList<Integer> numbersInLevel)
+    {
+        if(root==null)
+        {
+            return ;
+        }
+        if(level==1)
+        {
+            numbersInLevel.add(root.getValue());
+        }
+        else if (level>1)
+        {
+            getLevelNumbers(root.getLeft(),level-1,numbersInLevel);
+            getLevelNumbers(root.getRight(),level-1,numbersInLevel);
+        }
+
+    }
+
+||||||| 57e9d7c
+=======
+>>>>>>> ce32f15cf56f38c70935dc3cd4be8bc7c72c2ce5
     public boolean isSymmetric(Tree<Integer> root) {
         int treeLevel = 1;
         int removed = 0;
@@ -92,7 +167,29 @@ public class Tree<T> {
         }
         return false;
     }
+    public long digitSum(Tree<Integer>root)
+    {
+        return treeSum(root,0);
+    }
+    private long treeSum(Tree<Integer> node, int val)
+    {
 
+        if (node == null)
+            return 0;
+
+
+        val = (val * 10 + node.getValue());
+
+
+        if (node.getLeft() == null && node.getRight() == null)
+            return val;
+
+
+        return treeSum(node.getLeft(), val)
+                + treeSum(node.getRight(), val);
+    }
+
+>>>>>>> 628ee1b8cafd81801cde430df8b6ea334b13b332
     public T getValue() {
         return value;
     }
